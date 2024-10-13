@@ -1,8 +1,10 @@
 const express = require("express");
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+require('dotenv').config();
 const cors = require("cors");
 const menuRoutes = require("./api/menuRoutes");
 const orderRoutes = require("./api/orderRoutes"); // Import the new routes
+const dbURI = process.env.MONGO_URI;
 
 const app = express();
 app.use(cors());
@@ -12,9 +14,7 @@ app.use(express.json());
 
 // MongoDB connection
 mongoose
-  .connect(
-    "mongodb+srv://danialk007:27102003Danialkcube@cluster0.wnvcsso.mongodb.net/the-venue"
-  )
+  .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
